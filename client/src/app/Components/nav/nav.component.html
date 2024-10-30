@@ -1,0 +1,49 @@
+<nav class="p-3 navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Carousel</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <!-- Show the ul only if loggedIn is true -->
+        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0" *ngIf="accountService.currentUser$ | async">
+          <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
+        </ul>
+
+        <!-- <div class="dropdown" *ngIf="loggedIn">
+            <a class="dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">User</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">View Profile</a></li>
+              <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+              <li><a class="dropdown-item" href="#" (click)="logout()">Logout</a></li>
+            </ul>
+          </div> -->
+
+          <div class="dropdown" *ngIf="accountService.currentUser$ | async">
+            <a class="dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" (click)="$event.preventDefault()">User</a>
+            <ul class="dropdown-menu dropdown-menu-end"> <!-- dropdown-menu-end ensures it aligns to the right -->
+              <li><a class="dropdown-item" href="#">View Profile</a></li>
+              <div class="dropdown-divider"></div>
+              <li><a class="dropdown-item" href="#">Edit Profile</a></li>
+              <div class="dropdown-divider"></div>
+              <li><a class="dropdown-item" href="#" (click)="logout()">Logout</a></li>
+            </ul>
+          </div>
+          
+          
+  
+        <div *ngIf="(accountService.currentUser$ | async)===null" class="text-end ms-auto d-flex">
+          <!-- Show Login button only if the user is NOT logged in -->
+          <button *ngIf="!loggedIn" type="button" routerLink="/login" class="btn btn-outline-light me-2">Login</button>
+          <button *ngIf="!loggedIn" type="button" class="btn btn-warning">Sign-up</button>
+  
+          <!-- Show Logout button if loggedIn -->
+          <button *ngIf="loggedIn" type="button" (click)="logout()" class="btn btn-outline-light me-2">Logout</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
